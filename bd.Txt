@@ -1,0 +1,33 @@
+CREATE TABLE medecin(
+   id_medecin VARCHAR(50),
+   nom VARCHAR(50),
+   prenom VARCHAR(50),
+   civilite CHAR(1),
+   PRIMARY KEY(id_medecin)
+);
+
+CREATE TABLE patient(
+   id_patient COUNTER,
+   num_securite_social INT NOT NULL,
+   nom VARCHAR(50),
+   prenom VARCHAR(50),
+   adresse VARCHAR(50),
+   code_postal BYTE,
+   date_naissance DATE,
+   civilite CHAR(1),
+   lieu_naissance VARCHAR(50),
+   id_medecin VARCHAR(50),
+   PRIMARY KEY(id_patient),
+   FOREIGN KEY(id_medecin) REFERENCES medecin(id_medecin)
+);
+
+CREATE TABLE rdv(
+   id_patient INT,
+   id_medecin VARCHAR(50),
+   id_rdv COUNTER,
+   date_rdv DATE,
+   duree TIME,
+   PRIMARY KEY(id_patient, id_medecin, id_rdv),
+   FOREIGN KEY(id_patient) REFERENCES patient(id_patient),
+   FOREIGN KEY(id_medecin) REFERENCES medecin(id_medecin)
+);
